@@ -7,6 +7,10 @@
  * The class is documented in the file itself. If you find any bugs help me out and report them. Reporting can be done by sending an email to php-akismet-bugs[at]verkoyen[dot]eu.
  * If you report a bug, make sure you give me enough information (include your code).
  *
+ * Changelog since 1.0.0
+ * - some fields (blog) don't have to be urlencoded
+ * - submitHam and submitSpam return a boolean instead of void. When an error occors it will still throw an exception
+ *
  * License
  * Copyright (c) 2008, Tijs Verkoyen. All rights reserved.
  *
@@ -19,7 +23,7 @@
  * This software is provided by the author "as is" and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.
  *
  * @author			Tijs Verkoyen <php-akismet@verkoyen.eu>
- * @version			1.0
+ * @version			1.0.1
  *
  * @copyright		Copyright (c) 2008, Tijs Verkoyen. All rights reserved.
  * @license			BSD License
@@ -39,7 +43,7 @@ class Akismet
 	const API_VERSION = '1.1';
 
 	// current version
-	const VERSION = '1.0';
+	const VERSION = '1.0.1';
 
 
 	/**
@@ -113,8 +117,15 @@ class Akismet
 		// add url into the parameters
 		$aParameters['blog'] = $this->getUrl();
 
+		// some parameters shouldn't be encoded
+		$aDontEncode = array('blog');
+
 		// rebuild parameters
-		foreach($aParameters as $key => $value) $aParameters[$key] = urlencode($value);
+		foreach($aParameters as $key => $value)
+		{
+			// some keys shouldn't be encoded
+			if(!in_array($key, $aDontEncode)) $aParameters[$key] = urlencode($value);
+		}
 
 		// set options
 		$options[CURLOPT_URL] = $url;
@@ -372,7 +383,7 @@ class Akismet
 	 * Submit ham to Akismet
 	 * This call is intended for the marking of false positives, things that were incorrectly marked as spam.
 	 *
-	 * @return	void
+	 * @return	bool
 	 * @param	string $userIp				IP address of the comment submitter.
 	 * @param	string $userAgent			User agent information.
 	 * @param	string[optional] $content	The content that was submitted.
@@ -419,7 +430,10 @@ class Akismet
 		$response = $this->doCall('submit-ham', $aParameters);
 
 		// validate response
-		if(!in_array($response, $aPossibleResponses)) throw new AkismetException($response);
+		if(in_array($response, $aPossibleResponses)) return true;
+
+		// fallback
+		throw new AkismetException($response);
 	}
 
 
@@ -427,7 +441,7 @@ class Akismet
 	 * Submit spam to Akismet
 	 * This call is for submitting comments that weren't marked as spam but should have been.
 	 *
-	 * @return	void
+	 * @return	bool
 	 * @param	string $userIp				IP address of the comment submitter.
 	 * @param	string $userAgent			User agent information.
 	 * @param	string[optional] $content	The content that was submitted.
@@ -474,7 +488,10 @@ class Akismet
 		$response = $this->doCall('submit-spam', $aParameters);
 
 		// validate response
-		if(!in_array($response, $aPossibleResponses)) throw new AkismetException($response);
+		if(in_array($response, $aPossibleResponses)) return true;
+
+		// fallback
+		throw new AkismetException($response);
 	}
 }
 
