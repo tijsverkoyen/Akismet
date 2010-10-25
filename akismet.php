@@ -11,6 +11,9 @@
  * - some fields (blog) don't have to be urlencoded
  * - submitHam and submitSpam return a boolean instead of void. When an error occors it will still throw an exception
  *
+ * Changelog since 1.0.1
+ * - fixed some comments
+ *
  * License
  * Copyright (c) 2008, Tijs Verkoyen. All rights reserved.
  *
@@ -43,7 +46,7 @@ class Akismet
 	const API_VERSION = '1.1';
 
 	// current version
-	const VERSION = '1.0.1';
+	const VERSION = '1.0.2';
 
 
 	/**
@@ -81,6 +84,7 @@ class Akismet
 // class methods
 	/**
 	 * Default constructor
+	 * Creates an instance of the Akismet Class.
 	 *
 	 * @return	void
 	 * @param	string $apiKey	The API key being verified for use with the API
@@ -192,7 +196,7 @@ class Akismet
 
 
 	/**
-	 * Get the API-key
+	 * Get the API-key that will be used
 	 *
 	 * @return	string
 	 */
@@ -203,7 +207,7 @@ class Akismet
 
 
 	/**
-	 * Get the timeout
+	 * Get the timeout that will be used
 	 *
 	 * @return	int
 	 */
@@ -214,7 +218,8 @@ class Akismet
 
 
 	/**
-	 * Get the useragent
+	 * Get the useragent that will be used. Our version will be prepended to yours.
+	 * It will look like: "PHP Akismet/<version> <your-user-agent>"
 	 *
 	 * @return	string
 	 */
@@ -236,12 +241,12 @@ class Akismet
 
 
 	/**
-	 * Set API key
+	 * Set API key that has to be used
 	 *
 	 * @return	void
 	 * @param	string $apiKey
 	 */
-	public function setApiKey($apiKey)
+	private function setApiKey($apiKey)
 	{
 		$this->apiKey = (string) $apiKey;
 	}
@@ -249,9 +254,10 @@ class Akismet
 
 	/**
 	 * Set the timeout
+	 * After this time the request will stop. You should handle any errors triggered by this.
 	 *
 	 * @return	void
-	 * @param	int $seconds
+	 * @param	int $seconds	The timeout in seconds
 	 */
 	public function setTimeOut($seconds)
 	{
@@ -261,10 +267,10 @@ class Akismet
 
 	/**
 	 * Set the user-agent for you application
-	 * It will be appended to ours
+	 * It will be appended to ours, the result will look like: "PHP Akismet/<version> <your-user-agent>"
 	 *
 	 * @return	void
-	 * @param	string $userAgent
+	 * @param	string $userAgent	Your user-agent, it should look like <app-name>/<app-version>
 	 */
 	public function setUserAgent($userAgent)
 	{
@@ -278,7 +284,7 @@ class Akismet
 	 * @return	void
 	 * @param	string $url
 	 */
-	public function setUrl($url)
+	private function setUrl($url)
 	{
 		$this->url = (string) $url;
 	}
@@ -288,7 +294,7 @@ class Akismet
 	/**
 	 * Verifies the key
 	 *
-	 * @return	bool
+	 * @return	bool	If the key is valid it will return true, otherwise false will be returned.
 	 */
 	public function verifyKey()
 	{
@@ -318,13 +324,13 @@ class Akismet
 	 * Almost everything is optional, but performance can drop dramatically if you exclude certain elements.
 	 * REMARK: If you are having trouble triggering you can send "viagra-test-123" as the author and it will trigger a true response, always.
 	 *
-	 * @return	bool
-	 * @param	string[optional] $content	The content that was submitted.
-	 * @param	string[optional] $author	Submitted name with the comment
-	 * @param	string[optional] $email		Submitted email address
-	 * @param	string[optional] $url		Commenter URL.
-	 * @param	string[optional] $permalink	The permanent location of the entry the comment was submitted to.
-	 * @param	string[optional] $type		May be blank, comment, trackback, pingback, or a made up value like "registration".
+	 * @return	bool	If the comment is spam true will be returned, otherwise false.
+	 * @param	string[optional] $content	The content that was submitted
+	 * @param	string[optional] $author	Commenters name
+	 * @param	string[optional] $email		Commenters email address
+	 * @param	string[optional] $url		Commenters URL
+	 * @param	string[optional] $permalink	The permanent location of the entry the comment was submitted to
+	 * @param	string[optional] $type		May be blank, comment, trackback, pingback, or a made up value like "registration"
 	 */
 	public function isSpam($content, $author = null, $email = null, $url = null, $permalink = null, $type = null)
 	{
@@ -383,7 +389,7 @@ class Akismet
 	 * Submit ham to Akismet
 	 * This call is intended for the marking of false positives, things that were incorrectly marked as spam.
 	 *
-	 * @return	bool
+	 * @return	bool	If everything went fine true will be returned, otherwise an exception will be triggered.
 	 * @param	string $userIp				IP address of the comment submitter.
 	 * @param	string $userAgent			User agent information.
 	 * @param	string[optional] $content	The content that was submitted.
@@ -441,7 +447,7 @@ class Akismet
 	 * Submit spam to Akismet
 	 * This call is for submitting comments that weren't marked as spam but should have been.
 	 *
-	 * @return	bool
+	 * @return	bool	If everything went fine true will be returned, otherwise an exception will be triggered.
 	 * @param	string $userIp				IP address of the comment submitter.
 	 * @param	string $userAgent			User agent information.
 	 * @param	string[optional] $content	The content that was submitted.
