@@ -14,6 +14,9 @@
  * Changelog since 1.0.1
  * - fixed some comments
  *
+ * Changelog since 1.0.2
+ * - when authenticating the key will be validate if it is not empty
+ *
  * License
  * Copyright (c) 2008, Tijs Verkoyen. All rights reserved.
  *
@@ -26,7 +29,7 @@
  * This software is provided by the author "as is" and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.
  *
  * @author			Tijs Verkoyen <php-akismet@verkoyen.eu>
- * @version			1.0.1
+ * @version			1.0.3
  *
  * @copyright		Copyright (c) 2008, Tijs Verkoyen. All rights reserved.
  * @license			BSD License
@@ -46,7 +49,7 @@ class Akismet
 	const API_VERSION = '1.1';
 
 	// current version
-	const VERSION = '1.0.2';
+	const VERSION = '1.0.3';
 
 
 	/**
@@ -115,8 +118,19 @@ class Akismet
 		// build url
 		$url = self::API_URL .'/'. self::API_VERSION .'/'. $url;
 
+
 		// add key in front of url
-		if($authenticate) $url = str_replace('http://', 'http://'. $this->getApiKey() .'.', $url);
+		if($authenticate)
+		{
+			// get api key
+			$apiKey = $this->getApiKey();
+
+			// validate apiKey
+			if($apiKey == '') throw new AkismetException('Invalid API-key');
+
+			// prepend key
+			$url = str_replace('http://', 'http://'. $apiKey .'.', $url);
+		}
 
 		// add url into the parameters
 		$aParameters['blog'] = $this->getUrl();
