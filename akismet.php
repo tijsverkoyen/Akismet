@@ -53,7 +53,7 @@ class Akismet
 	const API_VERSION = '1.1';
 
 	// current version
-	const VERSION = '1.0.3';
+	const VERSION = '1.0.4';
 
 
 	/**
