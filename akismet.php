@@ -60,14 +60,12 @@ class Akismet
 	// current version
 	const VERSION = '1.0.5';
 
-
 	/**
 	 * The key for the API
 	 *
 	 * @var	string
 	 */
 	private $apiKey;
-
 
 	/**
 	 * The timeout
@@ -76,14 +74,12 @@ class Akismet
 	 */
 	private $timeOut = 60;
 
-
 	/**
 	 * The user agent
 	 *
 	 * @var	string
 	 */
 	private $userAgent;
-
 
 	/**
 	 * The url
@@ -92,15 +88,13 @@ class Akismet
 	 */
 	private $url;
 
-
 // class methods
 	/**
 	 * Default constructor
 	 * Creates an instance of the Akismet Class.
 	 *
-	 * @return	void
-	 * @param	string $apiKey	The API key being verified for use with the API.
-	 * @param	string $url		The front page or home URL of the instance making the request. For a blog or wiki this would be the front page. Note: Must be a full URI, including http://.
+	 * @param string $apiKey	The API key being verified for use with the API.
+	 * @param string $url		The front page or home URL of the instance making the request. For a blog or wiki this would be the front page. Note: Must be a full URI, including http://.
 	 */
 	public function __construct($apiKey, $url)
 	{
@@ -108,14 +102,13 @@ class Akismet
 		$this->setUrl($url);
 	}
 
-
 	/**
 	 * Make the call
 	 *
-	 * @return	string
-	 * @param	string $url						The URL to call.
-	 * @param	array[optional] $aParameters	The parameters to pass.
-	 * @param	bool[optional] $authenticate	Should we authenticate?
+	 * @param string $url						The URL to call.
+	 * @param array[optional] $aParameters	The parameters to pass.
+	 * @param bool[optional] $authenticate	Should we authenticate?
+	 * @return string
 	 */
 	private function doCall($url, $aParameters = array(), $authenticate = true)
 	{
@@ -217,107 +210,94 @@ class Akismet
 		return $response;
 	}
 
-
 	/**
 	 * Get the API-key that will be used
 	 *
-	 * @return	string
+	 * @return string
 	 */
 	private function getApiKey()
 	{
 		return (string) $this->apiKey;
 	}
 
-
 	/**
 	 * Get the timeout that will be used
 	 *
-	 * @return	int
+	 * @return int
 	 */
 	public function getTimeOut()
 	{
 		return (int) $this->timeOut;
 	}
 
-
 	/**
 	 * Get the url of the instance making the request
 	 *
-	 * @return	string
+	 * @return string
 	 */
 	public function getUrl()
 	{
 		return (string) $this->url;
 	}
 
-
 	/**
 	 * Get the useragent that will be used. Our version will be prepended to yours.
 	 * It will look like: "PHP Akismet/<version> <your-user-agent>"
 	 *
-	 * @return	string
+	 * @return string
 	 */
 	public function getUserAgent()
 	{
 		return (string) 'PHP Akismet/' . self::VERSION . ' ' . $this->userAgent;
 	}
 
-
 	/**
 	 * Set API key that has to be used
 	 *
-	 * @return	void
-	 * @param	string $apiKey		The API key to use.
+	 * @param string $apiKey		The API key to use.
 	 */
 	private function setApiKey($apiKey)
 	{
 		$this->apiKey = (string) $apiKey;
 	}
 
-
 	/**
 	 * Set the timeout
 	 * After this time the request will stop. You should handle any errors triggered by this.
 	 *
-	 * @return	void
-	 * @param	int $seconds	The timeout in seconds.
+	 * @param int $seconds	The timeout in seconds.
 	 */
 	public function setTimeOut($seconds)
 	{
 		$this->timeOut = (int) $seconds;
 	}
 
-
 	/**
 	 * Set the url of the instance making the request
 	 *
-	 * @return	void
-	 * @param	string $url		The URL making the request.
+	 * @param string $url		The URL making the request.
 	 */
 	private function setUrl($url)
 	{
 		$this->url = (string) $url;
 	}
 
-
 	/**
 	 * Set the user-agent for you application
 	 * It will be appended to ours, the result will look like: "PHP Akismet/<version> <your-user-agent>"
 	 *
-	 * @return	void
-	 * @param	string $userAgent	Your user-agent, it should look like <app-name>/<app-version>.
+	 * @param string $userAgent	Your user-agent, it should look like <app-name>/<app-version>.
 	 */
 	public function setUserAgent($userAgent)
 	{
 		$this->userAgent = (string) $userAgent;
 	}
 
-
 // api methods
 	/**
 	 * Verifies the key
 	 *
-	 * @return	bool	If the key is valid it will return true, otherwise false will be returned.
+	 * @return bool	If the key is valid it will return true, otherwise false will be returned.
 	 */
 	public function verifyKey()
 	{
@@ -340,20 +320,19 @@ class Akismet
 		return false;
 	}
 
-
 	/**
 	 * Check if the comment is spam or not
 	 * This is basically the core of everything. This call takes a number of arguments and characteristics about the submitted content and then returns a thumbs up or thumbs down.
 	 * Almost everything is optional, but performance can drop dramatically if you exclude certain elements.
 	 * REMARK: If you are having trouble triggering you can send "viagra-test-123" as the author and it will trigger a true response, always.
 	 *
-	 * @return	bool	If the comment is spam true will be returned, otherwise false.
-	 * @param	string[optional] $content	The content that was submitted.
-	 * @param	string[optional] $author	Commenters name.
-	 * @param	string[optional] $email		Commenters email address.
-	 * @param	string[optional] $url		Commenters URL.
-	 * @param	string[optional] $permalink	The permanent location of the entry the comment was submitted to.
-	 * @param	string[optional] $type		May be blank, comment, trackback, pingback, or a made up value like "registration".
+	 * @param string[optional] $content	The content that was submitted.
+	 * @param string[optional] $author	Commenters name.
+	 * @param string[optional] $email		Commenters email address.
+	 * @param string[optional] $url		Commenters URL.
+	 * @param string[optional] $permalink	The permanent location of the entry the comment was submitted to.
+	 * @param string[optional] $type		May be blank, comment, trackback, pingback, or a made up value like "registration".
+	 * @return bool	If the comment is spam true will be returned, otherwise false.
 	 */
 	public function isSpam($content, $author = null, $email = null, $url = null, $permalink = null, $type = null)
 	{
@@ -409,22 +388,21 @@ class Akismet
 		return false;
 	}
 
-
 	/**
 	 * Submit ham to Akismet
 	 * This call is intended for the marking of false positives, things that were incorrectly marked as spam.
 	 *
-	 * @return	bool	If everything went fine true will be returned, otherwise an exception will be triggered.
-	 * @param	string $userIp				IP address of the comment submitter.
-	 * @param	string $userAgent			User agent information.
-	 * @param	string[optional] $content	The content that was submitted.
-	 * @param	string[optional] $author	Submitted name with the comment.
-	 * @param	string[optional] $email		Submitted email address.
-	 * @param	string[optional] $url		Commenter URL.
-	 * @param	string[optional] $permalink	The permanent location of the entry the comment was submitted to.
-	 * @param	string[optional] $type		May be blank, comment, trackback, pingback, or a made up value like "registration".
-	 * @param	string[optional] $referrer	The content of the HTTP_REFERER header should be sent here.
-	 * @param	array[optional] $others		Other data (the variables from $_SERVER).
+	 * @param string $userIp				IP address of the comment submitter.
+	 * @param string $userAgent			User agent information.
+	 * @param string[optional] $content	The content that was submitted.
+	 * @param string[optional] $author	Submitted name with the comment.
+	 * @param string[optional] $email		Submitted email address.
+	 * @param string[optional] $url		Commenter URL.
+	 * @param string[optional] $permalink	The permanent location of the entry the comment was submitted to.
+	 * @param string[optional] $type		May be blank, comment, trackback, pingback, or a made up value like "registration".
+	 * @param string[optional] $referrer	The content of the HTTP_REFERER header should be sent here.
+	 * @param array[optional] $others		Other data (the variables from $_SERVER).
+	 * @return bool	If everything went fine true will be returned, otherwise an exception will be triggered.
 	 */
 	public function submitHam($userIp, $userAgent, $content, $author = null, $email = null, $url = null, $permalink = null, $type = null, $referrer = null, $others = null)
 	{
@@ -467,22 +445,21 @@ class Akismet
 		throw new AkismetException($response);
 	}
 
-
 	/**
 	 * Submit spam to Akismet
 	 * This call is for submitting comments that weren't marked as spam but should have been.
 	 *
-	 * @return	bool	If everything went fine true will be returned, otherwise an exception will be triggered.
-	 * @param	string $userIp				IP address of the comment submitter.
-	 * @param	string $userAgent			User agent information.
-	 * @param	string[optional] $content	The content that was submitted.
-	 * @param	string[optional] $author	Submitted name with the comment.
-	 * @param	string[optional] $email		Submitted email address.
-	 * @param	string[optional] $url		Commenter URL.
-	 * @param	string[optional] $permalink	The permanent location of the entry the comment was submitted to.
-	 * @param	string[optional] $type		May be blank, comment, trackback, pingback, or a made up value like "registration".
-	 * @param	string[optional] $referrer	The content of the HTTP_REFERER header should be sent here.
-	 * @param	array[optional] $others		Other data (the variables from $_SERVER).
+	 * @param string $userIp				IP address of the comment submitter.
+	 * @param string $userAgent			User agent information.
+	 * @param string[optional] $content	The content that was submitted.
+	 * @param string[optional] $author	Submitted name with the comment.
+	 * @param string[optional] $email		Submitted email address.
+	 * @param string[optional] $url		Commenter URL.
+	 * @param string[optional] $permalink	The permanent location of the entry the comment was submitted to.
+	 * @param string[optional] $type		May be blank, comment, trackback, pingback, or a made up value like "registration".
+	 * @param string[optional] $referrer	The content of the HTTP_REFERER header should be sent here.
+	 * @param array[optional] $others		Other data (the variables from $_SERVER).
+	 * @return bool	If everything went fine true will be returned, otherwise an exception will be triggered.
 	 */
 	public function submitSpam($userIp, $userAgent, $content, $author = null, $email = null, $url = null, $permalink = null, $type = null, $referrer = null, $others = null)
 	{
@@ -525,7 +502,6 @@ class Akismet
 		throw new AkismetException($response);
 	}
 }
-
 
 /**
  * Akismet Exception class
@@ -580,15 +556,14 @@ class AkismetException extends Exception
 									502 => 'Bad Gateway',
 									503 => 'Service Unavailable',
 									504 => 'Gateway Timeout',
-									505 => 'HTTP Version Not Supported');
-
+									505 => 'HTTP Version Not Supported'
+								);
 
 	/**
 	 * Default constructor
 	 *
-	 * @return	void
-	 * @param	string[optional] $message	The message.
-	 * @param	int[optional] $code			The error number.
+	 * @param string[optional] $message	The message.
+	 * @param int[optional] $code			The error number.
 	 */
 	public function __construct($message = null, $code = null)
 	{
@@ -599,5 +574,3 @@ class AkismetException extends Exception
 		parent::__construct((string) $message, $code);
 	}
 }
-
-?>

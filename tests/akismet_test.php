@@ -1,4 +1,5 @@
 <?php
+
 // require the class
 require_once '../akismet.php';
 
@@ -20,8 +21,6 @@ class AkismetTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * Prepares the environment before running a test.
-	 *
-	 * @return	void
 	 */
 	protected function setUp()
 	{
@@ -32,11 +31,8 @@ class AkismetTest extends PHPUnit_Framework_TestCase
 		$this->akismet = new Akismet('95a9c98ebea7', 'http://classes.verkoyen.local.new');
 	}
 
-
 	/**
 	 * Cleans up the environment after running a test.
-	 *
-	 * @return	void
 	 */
 	protected function tearDown()
 	{
@@ -47,11 +43,8 @@ class AkismetTest extends PHPUnit_Framework_TestCase
 		parent::tearDown();
 	}
 
-
 	/**
 	 * Tests Akismet->isSpam()
-	 *
-	 * @return	void
 	 */
 	public function testIsSpam()
 	{
@@ -62,11 +55,8 @@ class AkismetTest extends PHPUnit_Framework_TestCase
 		$this->assertTrue($this->akismet->isSpam('spam', 'viagra-test-123', 'spam@spam.om'));
 	}
 
-
 	/**
 	 * Tests Akismet->submitHam()
-	 *
-	 * @return	void
 	 */
 	public function testSubmitHam()
 	{
@@ -74,11 +64,8 @@ class AkismetTest extends PHPUnit_Framework_TestCase
 		$this->assertTrue($this->akismet->submitHam('84.194.176.71', 'userAgent', 'content', 'Tijs Verkoyen', 'akismet@verkoyen.eu'));
 	}
 
-
 	/**
 	 * Tests Akismet->submitSpam()
-	 *
-	 * @return	void
 	 */
 	public function testSubmitSpam()
 	{
@@ -86,11 +73,8 @@ class AkismetTest extends PHPUnit_Framework_TestCase
 		$this->assertTrue($this->akismet->submitHam('84.194.176.32', 'userAgent', 'spam', 'spam', 'spam@spam.com'));
 	}
 
-
 	/**
 	 * Tests Akismet->verifyKey()
-	 *
-	 * @return	void
 	 */
 	public function testVerifyKey()
 	{
@@ -102,4 +86,3 @@ class AkismetTest extends PHPUnit_Framework_TestCase
 		$this->assertFalse($this->akismet->verifyKey());
 	}
 }
-
