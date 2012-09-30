@@ -1,5 +1,7 @@
 <?php
 
+namespace TijsVerkoyen\Akismet;
+
 /**
  * Akismet class
  *
@@ -132,7 +134,7 @@ class Akismet
 			$apiKey = $this->getApiKey();
 
 			// validate apiKey
-			if($apiKey == '') throw new AkismetException('Invalid API-key');
+			if($apiKey == '') throw new Exception('Invalid API-key');
 
 			// prepend key
 			$url = str_replace('http://', 'http://' . $apiKey . '.', $url);
@@ -194,11 +196,11 @@ class Akismet
 			}
 
 			// throw error
-			throw new AkismetException(null, (int) $headers['http_code']);
+			throw new Exception(null, (int) $headers['http_code']);
 		}
 
 		// error?
-		if($errorNumber != '') throw new AkismetException($errorMessage, $errorNumber);
+		if($errorNumber != '') throw new Exception($errorMessage, $errorNumber);
 
 		// return
 		return $response;
@@ -307,7 +309,7 @@ class Akismet
 		$response = $this->doCall('verify-key', $aParameters, false);
 
 		// validate response
-		if(!in_array($response, $aPossibleResponses)) throw new AkismetException($response, 400);
+		if(!in_array($response, $aPossibleResponses)) throw new Exception($response, 400);
 
 		// valid key
 		if($response == 'valid') return true;
@@ -376,7 +378,7 @@ class Akismet
 		$response = $this->doCall('comment-check', $aParameters);
 
 		// validate response
-		if(!in_array($response, $aPossibleResponses)) throw new AkismetException($response, 400);
+		if(!in_array($response, $aPossibleResponses)) throw new Exception($response, 400);
 
 		// process response
 		if($response == 'true') return true;
@@ -439,7 +441,7 @@ class Akismet
 		if(in_array($response, $aPossibleResponses)) return true;
 
 		// fallback
-		throw new AkismetException($response);
+		throw new Exception($response);
 	}
 
 	/**
@@ -496,6 +498,6 @@ class Akismet
 		if(in_array($response, $aPossibleResponses)) return true;
 
 		// fallback
-		throw new AkismetException($response);
+		throw new Exception($response);
 	}
 }
