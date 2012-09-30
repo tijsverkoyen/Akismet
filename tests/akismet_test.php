@@ -1,9 +1,8 @@
 <?php
 
-// require the class
+require_once 'config.php';
 require_once '../akismet.php';
 
-// require framework
 require_once 'PHPUnit/Framework/TestCase.php';
 
 /**
@@ -12,12 +11,9 @@ require_once 'PHPUnit/Framework/TestCase.php';
 class AkismetTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * instance
-	 *
 	 * @var Akismet
 	 */
 	private $akismet;
-
 
 	/**
 	 * Prepares the environment before running a test.
@@ -28,7 +24,7 @@ class AkismetTest extends PHPUnit_Framework_TestCase
 		parent::setUp();
 
 		// create instance
-		$this->akismet = new Akismet('95a9c98ebea7', 'http://classes.verkoyen.local.new');
+		$this->akismet = new Akismet(APIKEY, URL);
 	}
 
 	/**
