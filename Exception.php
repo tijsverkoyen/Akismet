@@ -1,11 +1,13 @@
 <?php
 
+namespace TijsVerkoyen\Akismet;
+
 /**
  * Akismet Exception class
  *
  * @author Tijs Verkoyen <php-akismet@verkoyen.eu>
  */
-class AkismetException extends Exception
+class Exception extends \Exception
 {
 	/**
 	 * Http header-codes
