@@ -257,7 +257,7 @@ class Akismet
     public function verifyKey()
     {
         // possible answers
-        $aPossibleResponses = array('valid', 'invalid');
+        $aPossibleResponses = array('avalid', 'ainvalid');
 
         // build parameters
         $aParameters['key'] = $this->getApiKey();

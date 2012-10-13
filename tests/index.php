@@ -4,8 +4,10 @@
 require_once '../../../autoload.php';
 require_once 'config.php';
 
+use \TijsVerkoyen\Akismet\Akismet;
+
 // create instance
-$akismet = new \TijsVerkoyen\Akismet\Akismet(APIKEY, URL);
+$akismet = new Akismet(APIKEY, URL);
 
 $response = $akismet->verifyKey();
 //$response = $akismet->isSpam('Nice one. Thanks', 'Joris', 'joris@verkoyen.eu', '', null, 'comment');

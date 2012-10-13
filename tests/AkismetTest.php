@@ -26,7 +26,7 @@ class AkismetTest extends PHPUnit_Framework_TestCase
         parent::setUp();
 
         // create instance
-        $this->akismet = new \TijsVerkoyen\Akismet\Akismet(APIKEY, URL);
+        $this->akismet = new Akismet(APIKEY, URL);
     }
 
     /**
@@ -48,16 +48,16 @@ class AkismetTest extends PHPUnit_Framework_TestCase
     {
         // no spam
         $this->assertFalse($this->akismet->isSpam(
-			'No spam', 'Tijs Verkoyen', 'tijs@verkoyen.eu',
-			'http://blog.verkoyen.eu',
-			'http://blog.verkoyen.eu/blog/p/detail/bit-ly-php-wrapper-class',
-			'comment'
-		));
+            'No spam', 'Tijs Verkoyen', 'tijs@verkoyen.eu',
+            'http://blog.verkoyen.eu',
+            'http://blog.verkoyen.eu/blog/p/detail/bit-ly-php-wrapper-class',
+            'comment'
+        ));
 
         // spam
         $this->assertTrue($this->akismet->isSpam(
-			'spam', 'viagra-test-123', 'spam@spam.om'
-		));
+            'spam', 'viagra-test-123', 'spam@spam.om'
+        ));
     }
 
     /**
@@ -67,9 +67,9 @@ class AkismetTest extends PHPUnit_Framework_TestCase
     {
         // submit ham
         $this->assertTrue($this->akismet->submitHam(
-			'84.194.176.71', 'userAgent', 'content', 'Tijs Verkoyen',
-			'akismet@verkoyen.eu'
-		));
+            '84.194.176.71', 'userAgent', 'content', 'Tijs Verkoyen',
+            'akismet@verkoyen.eu'
+        ));
     }
 
     /**
@@ -79,8 +79,8 @@ class AkismetTest extends PHPUnit_Framework_TestCase
     {
         // submit spam
         $this->assertTrue($this->akismet->submitSpam(
-			'84.194.176.32', 'userAgent', 'spam', 'spam', 'spam@spam.com'
-		));
+            '84.194.176.32', 'userAgent', 'spam', 'spam', 'spam@spam.com'
+        ));
     }
 
     /**
