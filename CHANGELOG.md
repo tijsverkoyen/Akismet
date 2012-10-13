@@ -1,6 +1,10 @@
-# Changelog since 1.0.7
+# Changelog since 1.0.8
 
 * Made it compliant with PSR
+
+# Changelog since 1.0.7
+
+* made the class available through composer
 
 # Changelog since 1.0.6
 

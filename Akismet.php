@@ -5,7 +5,7 @@ namespace TijsVerkoyen\Akismet;
  * Akismet class
  *
  * @author Tijs Verkoyen <php-akismet@verkoyen.eu>
- * @version 1.0.7
+ * @version 1.1.0
  * @copyright Copyright (c) Tijs Verkoyen. All rights reserved.
  * @license BSD License
  */
@@ -24,7 +24,7 @@ class Akismet
     const API_VERSION = '1.1';
 
     // current version
-    const VERSION = '1.0.7';
+    const VERSION = '1.1.0';
 
     /**
      * The key for the API
