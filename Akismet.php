@@ -3,61 +3,6 @@ namespace TijsVerkoyen\Akismet;
 
 /**
  * Akismet class
- * This source file can be used to communicate with Akismet (http://akismet.com)
- * The class is documented in the file itself. If you find any bugs help me out
- * and report them. Reporting can be done by sending an email to
- * php-akismet-bugs[at]verkoyen[dot]eu.
- * If you report a bug, make sure you give me enough information (include your
- * code).
- *
- * Changelog since 1.0.6
- * - implemented the new styleguide
- *
- * Changelog since 1.0.5
- * - implemented the new styleguide
- *
- * Changelog since 1.0.4
- * - fallback for when IP isn't available
- * - codestyling
- *
- * Changelog since 1.0.3
- * - added a check for safe-mode
- * - fixed some code-styling issues
- *
- * Changelog since 1.0.2
- * - when authenticating the key will be validate if it is not empty
- *
- * Changelog since 1.0.1
- * - fixed some comments
- *
- * Changelog since 1.0.0
- * - some fields (blog) don't have to be urlencoded
- * - submitHam and submitSpam return a boolean instead of void. When an error
- * occurs it will still throw an exception
- *
- * License
- * Copyright (c) Tijs Verkoyen. All rights reserved.
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- * 3. The name of the author may not be used to endorse or promote products
- *    derived from this software without specific prior written permission.
- *
- * This software is provided by the author "as is" and any express or implied
- * warranties, including, but not limited to, the implied warranties of
- * merchantability and fitness for a particular purpose are disclaimed. In no
- * event shall the author be liable for any direct, indirect, incidental,
- * special, exemplary, or consequential damages (including, but not limited to,
- * procurement of substitute goods or services; loss of use, data, or profits;
- * or business interruption) however caused and on any theory of liability,
- * whether in contract, strict liability, or tort (including negligence or
- * otherwise) arising in any way out of the use of this software, even if
- * advised of the possibility of such damage.
  *
  * @author Tijs Verkoyen <php-akismet@verkoyen.eu>
  * @version 1.0.7
@@ -105,7 +50,7 @@ class Akismet
      */
     private $url;
 
-    // class methods
+// class methods
     /**
      * Default constructor
      * Creates an instance of the Akismet Class.
@@ -124,9 +69,9 @@ class Akismet
 
     /**
      * Make the call
-     * @param string $url                  URL to call.
-     * @param array[optional] $aParameters The parameters to pass.
-     * @param bool[optional] $authenticate Should we authenticate?
+     * @param  string          $url          URL to call.
+     * @param  array[optional] $aParameters  The parameters to pass.
+     * @param  bool[optional]  $authenticate Should we authenticate?
      * @return string
      */
     private function doCall($url, $aParameters = array(), $authenticate = true)
@@ -283,7 +228,7 @@ class Akismet
 
     /**
      * Set the url of the instance making the request
-     * @param string $url    The URL making the request.
+     * @param string $url The URL making the request.
      */
     private function setUrl($url)
     {
@@ -349,10 +294,10 @@ class Akismet
      * @param string[optional] $url       The URL.
      * @param string[optional] $permalink The permanent location of the entry
      *                                    the comment was submitted to.
-     * @param string[optional] $type      The type, can be blank, comment,
+     * @param string[optional] $type The type, can be blank, comment,
      *                                    trackback, pingback, or a made up
      *                                    value like "registration".
-     * @return bool                       If the comment is spam true will be
+     * @return bool If the comment is spam true will be
      *                                    returned, otherwise false.
      */
     public function isSpam(
@@ -433,22 +378,22 @@ class Akismet
      * Submit ham to Akismet
      * This call is intended for the marking of false positives, things that
      * were incorrectly marked as spam.
-     * @param string $userIp              The address of the comment submitter.
-     * @param string $userAgent           The agent information.
+     * @param string           $userIp    The address of the comment submitter.
+     * @param string           $userAgent The agent information.
      * @param string[optional] $content   The content that was submitted.
      * @param string[optional] $author    The name of the author.
      * @param string[optional] $email     The email address.
      * @param string[optional] $url       The URL.
      * @param string[optional] $permalink The permanent location of the entry
      *                                    the comment was submitted to.
-     * @param string[optional] $type      The type, can be blank, comment,
+     * @param string[optional] $type The type, can be blank, comment,
      *                                    trackback, pingback, or a made up
      *                                    value like "registration".
-     * @param string[optional] $referrer  The content of the HTTP_REFERER
+     * @param string[optional] $referrer The content of the HTTP_REFERER
      *                                    header should be sent here.
-     * @param array[optional] $others     Extra data (the variables from
+     * @param array[optional] $others Extra data (the variables from
      *                                    $_SERVER).
-     * @return bool                       If everything went fine true will be
+     * @return bool If everything went fine true will be
      *                                    returned, otherwise an exception
      *                                    will be triggered.
      */
@@ -508,22 +453,22 @@ class Akismet
      * Submit spam to Akismet
      * This call is for submitting comments that weren't marked as spam but
      * should have been.
-     * @param string $userIp              The address of the comment submitter.
-     * @param string $userAgent           The agent information.
+     * @param string           $userIp    The address of the comment submitter.
+     * @param string           $userAgent The agent information.
      * @param string[optional] $content   The content that was submitted.
      * @param string[optional] $author    The name of the author.
      * @param string[optional] $email     The email address.
      * @param string[optional] $url       The URL.
      * @param string[optional] $permalink The permanent location of the entry
      *                                    the comment was submitted to.
-     * @param string[optional] $type      The type, can be blank, comment,
+     * @param string[optional] $type The type, can be blank, comment,
      *                                    trackback, pingback, or a made up
      *                                    value like "registration".
-     * @param string[optional] $referrer  The content of the HTTP_REFERER
+     * @param string[optional] $referrer The content of the HTTP_REFERER
      *                                    header should be sent here.
-     * @param array[optional] $others     Extra data (the variables from
+     * @param array[optional] $others Extra data (the variables from
      *                                    $_SERVER).
-     * @return bool                       If everything went fine true will be
+     * @return bool If everything went fine true will be
      *                                    returned, otherwise an exception
      *                                    will be triggered.
      */
