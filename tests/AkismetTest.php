@@ -1,11 +1,10 @@
 <?php
 
 //require
-require_once '../../../autoload.php';
-require_once 'config.php';
 require_once 'PHPUnit/Framework/TestCase.php';
+require_once '../Akismet.php';
 
-use \TijsVerkoyen\Akismet;
+use \TijsVerkoyen\Akismet\Akismet;
 
 /**
  * Akismet test case.
