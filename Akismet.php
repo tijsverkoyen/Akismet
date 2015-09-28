@@ -110,7 +110,9 @@ class Akismet
         $options[CURLOPT_TIMEOUT] = (int) $this->getTimeOut();
         $options[CURLOPT_POST] = true;
         $options[CURLOPT_POSTFIELDS] = $aParameters;
-        $options[CURLOPT_SAFE_UPLOAD] = true;
+        if (defined('CURLOPT_SAFE_UPLOAD')) {
+            $options[CURLOPT_SAFE_UPLOAD] = true;
+        }]
 
         // speed up things, use HTTP 1.0
         $options[CURLOPT_HTTP_VERSION] = CURL_HTTP_VERSION_1_0;
