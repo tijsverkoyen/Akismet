@@ -108,6 +108,8 @@ class Akismet
         }
         $options[CURLOPT_RETURNTRANSFER] = true;
         $options[CURLOPT_TIMEOUT] = (int) $this->getTimeOut();
+        // fix(xuwaters): In PHP 5.5.0, CURLOPT_SAFE_UPLOAD is FALSE as default. May cause problem when field content starts with '@'
+        $options[CURLOPT_SAFE_UPLOAD] = true;
         $options[CURLOPT_POST] = true;
         $options[CURLOPT_POSTFIELDS] = $aParameters;
 
