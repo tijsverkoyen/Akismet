@@ -156,7 +156,9 @@ class Akismet
         }
 
         // error?
-        if ($errorNumber != '') throw new Exception($errorMessage, $errorNumber);
+        if ((int) $errorNumber > 0) {
+            throw new Exception($errorMessage, $errorNumber);
+        }
 
         // return
         return $response;
